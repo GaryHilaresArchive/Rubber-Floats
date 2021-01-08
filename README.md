@@ -1,2 +1,2 @@
-# GFloats
-GFloats: Arbitrary size and precision floats support for C++.
+# GFloatingPoints
+GFloatingPoints: Arbitrary size and precision floating points support for C++.
