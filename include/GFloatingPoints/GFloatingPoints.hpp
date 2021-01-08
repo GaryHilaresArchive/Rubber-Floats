@@ -303,24 +303,24 @@ namespace GFloatingPoints
             *this = *this - num2;
             return *this;
         }
-        GFloat operator++()
+        GFloat operator++(int)
         {
             GFloat tmp = *this;
             *this += GFloat(1);
             return tmp;
         }
-        GFloat operator--()
+        GFloat operator--(int)
         {
             GFloat tmp = *this;
             *this -= GFloat(1);
             return tmp;
         }
-        GFloat operator++(int)
+        GFloat operator++()
         {
             *this += GFloat(1);
             return *this;
         }
-        GFloat operator--(int)
+        GFloat operator--()
         {
             *this -= 1;
             return *this;
