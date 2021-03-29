@@ -5,8 +5,8 @@
 [![badge-contributors](https://img.shields.io/github/contributors/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints/graphs/contributors)
 [![badge-codesize](https://img.shields.io/github/languages/code-size/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints)
 
-## What is GIntegers?
-GIntegers is an arbitrary integer size support library for C++.
+## What is GFloatingPoints?
+GFloatingPoints is an arbitrary floating point precision support library for C++.
 
 ### Features
 - Scalable.
