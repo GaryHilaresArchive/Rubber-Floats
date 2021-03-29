@@ -1,76 +1,70 @@
 # GFloatingPoints
-GFloatingPoints: Arbitrary Floating Point Size and Precision support for C++.
-## Setup
-1. Download the project from GitHub or clone the repository using the following command:
+[![badge-lastcommit](https://img.shields.io/github/last-commit/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints/commits/main)
+[![badge-openissues](https://img.shields.io/github/issues-raw/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints/issues)
+[![badge-license](https://img.shields.io/github/license/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints/blob/main/LICENSE)
+[![badge-contributors](https://img.shields.io/github/contributors/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints/graphs/contributors)
+[![badge-codesize](https://img.shields.io/github/languages/code-size/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints)
+
+## What is GIntegers?
+GIntegers is an arbitrary integer size support library for C++.
+
+### Features
+- Scalable.
+- Free.
+- Open-source.
+- Simple.
+- Very readable.
+
+## Platforms
+- Cross-platform.
+
+## Dependencies
+None.
+
+## Contributing
+### Pull requests
+We encourage you to make pull requests. To do so, follow those steps:
+1. Clone the repository.
+2. Start the repository in your local computer.
+3. Think about one issue or feature you want to work on or go to the issues sections of GitHub and pick one.
+4. Commit your changes.
+5. Push your changes to your fork.
+6. Create a pull request.
+That's it!
+
+### Feature requests
+If you want to request a feature, please do it in the Issues section. Additionally, mark it clearly as a feature request and then provide the maximum details you can. Follow this format:
+```markdown
+## Description:
+Describe your feature clearly.
+
+## Example outputs:
+Explain what is supposed to happen (e. g. what your function should return when is called).
+Post as many examples as you can.
+
+## Notes:
+If there is something you must add do it here.
 ```
-git clone https://github.com/GaryNLOL/GFloatingPoints.git
+
+### Issues
+You're welcome to posts issues. Just use the following format:
+```markdown
+## Description:
+Describe your problem clearly.
+
+## Minimal reproducible example:
+Post the minimal piece of code that can reproduce the problem.
+
+## Expected VS actual output:
+A clear explanation about the output that you expected to obtain and the output you obtained.
+
+## Platform:
+Include your OS.
+
+## Notes:
+If there is something you must add do it here.
 ```
-2. Add the include files to your project's folder or to your compiler's search path.
-3. Add the following line to your `.cpp` file:
-- If you added it to your project's folder:
-```
-#include "include/GFloatingPoints/GFloatingPoints.hpp"
-```
-- If you added it to your compiler's path:
-```
-#include <GFloatingPoints/GFloatingPoints.hpp>
-```
-4. You're ready to start using GFloatingPoints!
 
-## Structure
-### GFloatingPoints (namespace)
-#### GFloat (class)
-##### Public methods
-`GFloat()` -> Creates a `GFloat` default initialized to 0.
-
-`GFloat(const std::string& newVal)` -> Creates a `GFloat` from a `std::string`.
-
-template<typename float_type, typename = typename std::enable_if<std::is_floating_point<float_type>::value || std::is_integral<float_type>::value>::type> GFloat(const float_type newVal)` -> Creates a `GFloat` from any type of integer(`int`, `long int`, `long long int`, `unsigned long long int`, `size_t`, etc) or any type of floating point(`float`,`double`,`long double`).
-
-`std::string to_string() const` -> `Returns the object's value in the form of a `std::string`.
-
-`friend std::ostream& operator<<(std::ostream& stream, const GFloat& num)` -> Sends the value of `num` to the output stream `stream`.
-
-`friend std::istream& operator>>(std::istream& stream, GFloat& num)` -> Sets the value of `num` to the input value from `stream`.
-
-`bool operator==(const GFloat& num2) const` -> Returns true if the object's value and `num2`'s value are equal. Returns false otherwise.
-
-`bool operator!=(const GFloat& num2) const` -> Returns true if the object's value and `num2`'s value are different. Returns false otherwise.
-
-`bool operator>(const GFloat& num2) const` -> Returns true if the object's value is higher than `num2`'s value. Returns false otherwise.
-
-`bool operator<=(const GFloat& num2) const` -> Returns true if the object's value is lower or equal to `num2`'s value. Returns false otherwise.
-
-`bool operator>=(const GFloat& num2) const` -> Returns true if the object's value is higher or equal to `num2`'s value. Returns false otherwise.
-
-`bool operator<(const GFloat& num2) const` -> Returns true if the object's value is lower than `num2`'s value. Returns false otherwise.
-
-`GFloat operator+(const GFloat& num2) const` -> Returns the value of the object plus `num2`.
-
-`GFloat operator-(const GFloat& num2) const` -> Returns the value of the object minus `num2`.
-
-`GFloat operator+=(const GFloat& num2)` -> Sets the object's value to itself plus `num2` and returns the object's new value.
-
-`GFloat operator-=(const GFloat& num2)` -> Sets the object's value to itself minus `num2` and returns the object's new value.
-
-`GFloat operator++()` -> Sets the object's value to itself plus 1 and returns the object's old value.
-
-`GFloat operator++(int)` -> Sets the object's value to itself plus 1 and returns the object's new value.
-
-`GFloat operator--()` -> Sets the object's value to itself minus 1 and returns the object's old value.
-
-`GFloat operator--(int)` -> Sets the object's value to itself minus 1 and returns the object's new value.
-
-`GFloat operator*(const GFloat& num2) const` -> Returns the value of the object multiplied by `num2`.
-
-`GFloat operator*=(const GFloat& num2)` -> Sets the object's value to itself multiplied by `num2` and returns the object's new value.
-
-`GFloat operator/(const GFloat& num2) const` -> Returns the value of the object divided by `num2`.
-
-`GFloat operator/=(const GFloat& num2)` -> Sets the object's value to itself divided by `num2` and returns the object's new value.
-
-`GFloat operator%(const GFloat& num2) const` -> Returns the value of the object modulus `num2`.
-
-`GFloat operator%=(const GFloat& num2)` -> Sets the object's value to itself modulus `num2` and returns the object's new value.
-
-`GFloat abs() const` -> Returns a GFloat with the object's absolute value.
+## Useful links
+- [C++ Style Guide](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CPP%20Style%20Guide.md).
+- [Discord Server.](https://discord.gg/RQN6gcDQwX)
