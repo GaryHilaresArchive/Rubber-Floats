@@ -15,10 +15,10 @@ GFloatingPoints is an arbitrary floating point precision support library for C++
 - Simple.
 - Very readable.
 
-## Platforms
+### Platforms
 - Cross-platform.
 
-## Dependencies
+### Dependencies
 None.
 
 ## Contributing
