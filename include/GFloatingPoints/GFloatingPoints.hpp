@@ -43,20 +43,20 @@ namespace GFloatingPoints
     class GFloat
     {
     private:
-        bool isNegative;
-        std::string integralVal;
-        std::string decimalVal;
+        bool is_negative;
+        std::string integral_val;
+        std::string decimal_val;
         static bool isValidInput(const std::string& str)
         {
             if(str.size() == 0 || str == "-" || str == "." || str == "-.")
                 return false;
-            bool pointAppeared = false;
+            bool did_point_appear = false;
             for(unsigned int i = (str[0] == '-'); i < str.size(); i++)
             {
                 if(!std::isdigit(str[i]))
                 {
-                    if(str[i] == '.' && !pointAppeared)
-                        pointAppeared = true;
+                    if(str[i] == '.' && !did_point_appear)
+                        did_point_appear = true;
                     else
                         return false;
                 }
@@ -65,19 +65,19 @@ namespace GFloatingPoints
         }
         void deleteTrailingZeroes()
         {
-            for(std::string::size_type i = 0; i < this->integralVal.size(); i++)
+            for(std::string::size_type i = 0; i < this->integral_val.size(); i++)
             {
-                if(i == this->integralVal.size()-1 || this->integralVal[i] != '0')
+                if(i == this->integral_val.size()-1 || this->integral_val[i] != '0')
                 {
-                    this->integralVal.erase(0,i);
+                    this->integral_val.erase(0,i);
                     break;
                 }
             }
-            for(std::string::size_type i = this->decimalVal.size()-1; true /*(i >= 0)*/; i--)
+            for(std::string::size_type i = this->decimal_val.size()-1; true /*(i >= 0)*/; i--)
             {
-                if(i == 0 || this->decimalVal[i] != '0')
+                if(i == 0 || this->decimal_val[i] != '0')
                 {
-                    this->decimalVal.erase(i+1,this->decimalVal.size()-i-1);
+                    this->decimal_val.erase(i+1,this->decimal_val.size()-i-1);
                     break;
                 }
             }
@@ -85,41 +85,41 @@ namespace GFloatingPoints
     public:
         GFloat()
         {
-            this->isNegative = false;
-            this->integralVal = "0";
-            this->decimalVal = "0";
+            this->is_negative = false;
+            this->integral_val = "0";
+            this->decimal_val = "0";
         }
-        GFloat(const std::string& newVal)
+        GFloat(const std::string& new_val)
         {
-            if(!isValidInput(newVal))
-                throw std::invalid_argument("GFloat::GFloat(" + newVal + ")");
-            this->isNegative = (newVal[0] == '-');
-            std::string ::size_type pointIndex = newVal.find('.');
-            if(pointIndex == newVal.npos || pointIndex == newVal.size()-1)
+            if(!isValidInput(new_val))
+                throw std::invalid_argument("GFloat::GFloat(" + new_val + ")");
+            this->is_negative = (new_val[0] == '-');
+            std::string ::size_type point_index = new_val.find('.');
+            if(point_index == new_val.npos || point_index == new_val.size()-1)
             {
-                this->integralVal = newVal.substr(this->isNegative,newVal.size()-this->isNegative-(pointIndex == newVal.size()-1));
-                this->decimalVal = "0";
+                this->integral_val = new_val.substr(this->is_negative,new_val.size()-this->is_negative-(point_index == new_val.size()-1));
+                this->decimal_val = "0";
             }
-            else if(pointIndex == this->isNegative)
+            else if(point_index == this->is_negative)
             {
-                this->integralVal = "0";
-                this->decimalVal = newVal.substr(this->isNegative+1,newVal.size()-this->isNegative-1);
+                this->integral_val = "0";
+                this->decimal_val = new_val.substr(this->is_negative+1,new_val.size()-this->is_negative-1);
             }
             else
             {
-                this->integralVal = newVal.substr(this->isNegative,pointIndex-this->isNegative);
-                this->decimalVal = newVal.substr(pointIndex+1,newVal.size()-pointIndex-1);
+                this->integral_val = new_val.substr(this->is_negative,point_index-this->is_negative);
+                this->decimal_val = new_val.substr(point_index+1,new_val.size()-point_index-1);
             }
             this->deleteTrailingZeroes();
         }
         template<typename float_type, typename = typename std::enable_if<std::is_floating_point<float_type>::value || std::is_integral<float_type>::value>::type>
-        GFloat(const float_type newVal)
+        GFloat(const float_type new_val)
         {
-            *this = GFloat(std::to_string(newVal));
+            *this = GFloat(std::to_string(new_val));
         }
         std::string to_string() const
         {
-            return (isNegative ? "-":"") + integralVal + "." + decimalVal;
+            return (is_negative ? "-":"") + integral_val + "." + decimal_val;
         }
         friend std::ostream& operator<<(std::ostream& stream, const GFloat& num)
         {
@@ -128,14 +128,14 @@ namespace GFloatingPoints
         }
         friend std::istream& operator>>(std::istream& stream, GFloat& num)
         {
-            std::string checkStr;
-            stream >> checkStr;
-            num = GFloat(checkStr);
+            std::string check_str;
+            stream >> check_str;
+            num = GFloat(check_str);
             return stream;
         }
         bool operator==(const GFloat& num2) const
         {
-            return this->isNegative == num2.isNegative && this->integralVal == num2.integralVal && this->decimalVal == num2.decimalVal;
+            return this->is_negative == num2.is_negative && this->integral_val == num2.integral_val && this->decimal_val == num2.decimal_val;
         }
         bool operator!=(const GFloat& num2) const
         {
@@ -144,33 +144,33 @@ namespace GFloatingPoints
         GFloat abs() const
         {
             GFloat ret = *this;
-            ret.isNegative = false;
+            ret.is_negative = false;
             return ret;
         }
         bool operator>(const GFloat& num2) const
         {
-            if(this->isNegative != num2.isNegative)
-                return !this->isNegative;
+            if(this->is_negative != num2.is_negative)
+                return !this->is_negative;
             if(*this == num2)
                 return false;
-            if(this->isNegative)
+            if(this->is_negative)
                 return this->abs() < num2.abs();
-            if(this->integralVal.size() != num2.integralVal.size())
-                return this->integralVal.size() > num2.integralVal.size();
-            for(std::string::size_type i = 0; i < this->integralVal.size(); i++)
+            if(this->integral_val.size() != num2.integral_val.size())
+                return this->integral_val.size() > num2.integral_val.size();
+            for(std::string::size_type i = 0; i < this->integral_val.size(); i++)
             {
-                if(this->integralVal[i] > num2.integralVal[i])
+                if(this->integral_val[i] > num2.integral_val[i])
                     return true;
-                else if(this->integralVal[i] < num2.integralVal[i])
+                else if(this->integral_val[i] < num2.integral_val[i])
                     return false;
             }
-            if(this->decimalVal.size() != num2.decimalVal.size())
-                return this->decimalVal.size() > num2.decimalVal.size();
-            for(std::string::size_type i = 0; i < this->decimalVal.size(); i++)
+            if(this->decimal_val.size() != num2.decimal_val.size())
+                return this->decimal_val.size() > num2.decimal_val.size();
+            for(std::string::size_type i = 0; i < this->decimal_val.size(); i++)
             {
-                if(this->decimalVal[i] > num2.decimalVal[i])
+                if(this->decimal_val[i] > num2.decimal_val[i])
                     return true;
-                else if(this->decimalVal[i] < num2.decimalVal[i])
+                else if(this->decimal_val[i] < num2.decimal_val[i])
                     return false;
             }
             throw std::invalid_argument("GFloat::operator>(Impossible result)");
@@ -189,14 +189,14 @@ namespace GFloatingPoints
         }
         GFloat operator+(const GFloat& num2)
         {
-            if(this->isNegative == num2.isNegative)
+            if(this->is_negative == num2.is_negative)
             {
                 std::string answer;
                 int carry = 0;
-                for(std::string::size_type i = std::max(this->decimalVal.size()-1,num2.decimalVal.size()-1); true /*Check break at the end of the block*/; i--)
+                for(std::string::size_type i = std::max(this->decimal_val.size()-1,num2.decimal_val.size()-1); true /*Check break at the end of the block*/; i--)
                 {
-                    int operand1 = (i < this->decimalVal.size()) ? (this->decimalVal[i]-'0'):(0);
-                    int operand2 = (i < num2.decimalVal.size()) ? (num2.decimalVal[i]-'0'):(0);
+                    int operand1 = (i < this->decimal_val.size()) ? (this->decimal_val[i]-'0'):(0);
+                    int operand2 = (i < num2.decimal_val.size()) ? (num2.decimal_val[i]-'0'):(0);
                     int result = operand1 + operand2 + carry;
                     if(result >= 10)
                     {
@@ -212,10 +212,10 @@ namespace GFloatingPoints
                         break;
                 }
                 answer += ".";
-                for(int i = this->integralVal.size()-1, j = num2.integralVal.size()-1; i >= 0 || j >= 0 || carry != 0 /*Check break at the end of the block*/; i--, j--)
+                for(int i = this->integral_val.size()-1, j = num2.integral_val.size()-1; i >= 0 || j >= 0 || carry != 0; i--, j--)
                 {
-                    int operand1 = (i >= 0) ? (this->integralVal[i]-'0'):0;
-                    int operand2 = (j >= 0) ? (num2.integralVal[j]-'0'):0;
+                    int operand1 = (i >= 0) ? (this->integral_val[i]-'0'):0;
+                    int operand2 = (j >= 0) ? (num2.integral_val[j]-'0'):0;
                     int result = operand1 + operand2 + carry;
                     if(result >= 10)
                     {
@@ -228,24 +228,24 @@ namespace GFloatingPoints
                     }
                     answer += char(result + '0');
                 }
-                answer = (this->isNegative ? "-":"") + std::string(answer.rbegin(),answer.rend());
+                answer = (this->is_negative ? "-":"") + std::string(answer.rbegin(),answer.rend());
                 return GFloat(answer);
             }
             else
             {
                 if(this->abs() == num2.abs())
                     return GFloat(0);
-                const GFloat& positive = this->isNegative ? num2.abs():this->abs();
-                const GFloat& negative = this->isNegative ? this->abs():num2.abs();
-                bool resultIsNegative = negative > positive;
+                const GFloat& positive = this->is_negative ? num2.abs():this->abs();
+                const GFloat& negative = this->is_negative ? this->abs():num2.abs();
+                bool is_result_negative = negative > positive;
                 std::string answer;
                 int carry = 0;
-                for(std::string::size_type i = std::max(positive.decimalVal.size()-1,negative.decimalVal.size()-1); true /*Check break at the end of the block*/; i--)
+                for(std::string::size_type i = std::max(positive.decimal_val.size()-1,negative.decimal_val.size()-1); true /*Check break at the end of the block*/; i--)
                 {
-                    int operand1 = (i < positive.decimalVal.size()) ? (positive.decimalVal[i]-'0'):(0);
-                    int operand2 = (i < negative.decimalVal.size()) ? (negative.decimalVal[i]-'0'):(0);
+                    int operand1 = (i < positive.decimal_val.size()) ? (positive.decimal_val[i]-'0'):(0);
+                    int operand2 = (i < negative.decimal_val.size()) ? (negative.decimal_val[i]-'0'):(0);
                     int result;
-                    if(resultIsNegative)
+                    if(is_result_negative)
                         result = operand2 - (operand1 + carry);
                     else
                         result = operand1 - (operand2 + carry);
@@ -263,12 +263,12 @@ namespace GFloatingPoints
                         break;
                 }
                 answer += ".";
-                for(int i = positive.integralVal.size()-1, j = negative.integralVal.size()-1; i >= 0 || j >= 0 /*Check break at the end of the block*/; i--, j--)
+                for(int i = positive.integral_val.size()-1, j = negative.integral_val.size()-1; i >= 0 || j >= 0; i--, j--)
                 {
-                    int operand1 = (i >= 0) ? (positive.integralVal[i]-'0'):0;
-                    int operand2 = (j >= 0) ? (negative.integralVal[j]-'0'):0;
+                    int operand1 = (i >= 0) ? (positive.integral_val[i]-'0'):0;
+                    int operand2 = (j >= 0) ? (negative.integral_val[j]-'0'):0;
                     int result;
-                    if(resultIsNegative)
+                    if(is_result_negative)
                         result = operand2 - (operand1 + carry);
                     else
                         result = operand1 - (operand2 + carry);
@@ -283,7 +283,7 @@ namespace GFloatingPoints
                     }
                     answer += char(result + '0');
                 }
-                answer = (resultIsNegative ? "-":"") + std::string(answer.rbegin(),answer.rend());
+                answer = (is_result_negative ? "-":"") + std::string(answer.rbegin(),answer.rend());
                 return GFloat(answer);
             }
         }
@@ -295,7 +295,7 @@ namespace GFloatingPoints
         GFloat operator-(const GFloat& num2)
         {
             GFloat tmp = num2;
-            tmp.isNegative = !tmp.isNegative;
+            tmp.is_negative = !tmp.is_negative;
             return *this + tmp;
         }
         GFloat operator -=(const GFloat& num2)
@@ -327,33 +327,33 @@ namespace GFloatingPoints
         }
         GFloat operator*(const GFloat& num2) const
         {
-            if((this->integralVal == "0" && this->decimalVal == "0") || (num2.integralVal == "0" && num2.decimalVal == "0"))
+            if((this->integral_val == "0" && this->decimal_val == "0") || (num2.integral_val == "0" && num2.decimal_val == "0"))
                 return GFloat(0);
-            std::vector<GFloat> unitaryResults;
-            const std::string num1val = this->integralVal + this->decimalVal;
-            const std::string num2val = num2.integralVal + num2.decimalVal;
-            for(int i = num1val.size()-1; i >= 0; i--)
+            std::vector<GFloat> unitary_results;
+            const std::string num1_val = this->integral_val + this->decimal_val;
+            const std::string num2_val = num2.integral_val + num2.decimal_val;
+            for(int i = num1_val.size()-1; i >= 0; i--)
             {
-                std::string unitaryAnswer;
+                std::string unitary_answer;
                 int carry = 0;
-                int operand1 = num1val[i] - '0';
-                for(int j = num2val.size()-1; j >= 0 || carry != 0; j--)
+                int operand1 = num1_val[i] - '0';
+                for(int j = num2_val.size()-1; j >= 0 || carry != 0; j--)
                 {
-                    int operand2 = (j >= 0) ? (num2val[j]-'0'):(0);
+                    int operand2 = (j >= 0) ? (num2_val[j]-'0'):(0);
                     int result = operand1 * operand2 + carry;
                     carry = result/10;
                     result %= 10;
-                    unitaryAnswer += char(result + 48);
+                    unitary_answer += char(result + 48);
                 }
-                unitaryAnswer = std::string(unitaryAnswer.rbegin(),unitaryAnswer.rend()) + std::string(unitaryResults.size(),'0');
-                unitaryResults.push_back(GFloat(unitaryAnswer));
+                unitary_answer = std::string(unitary_answer.rbegin(),unitary_answer.rend()) + std::string(unitary_results.size(),'0');
+                unitary_results.push_back(GFloat(unitary_answer));
             }
             GFloat answer;
-            for(unsigned int i = 0; i < unitaryResults.size(); i++)
-                answer += unitaryResults[i];
-            answer.decimalVal = answer.integralVal.substr(answer.integralVal.size()-(this->decimalVal.size()+num2.decimalVal.size()),this->decimalVal.size()+num2.decimalVal.size());
-            answer.integralVal = answer.integralVal.substr(0,answer.integralVal.size()-(this->decimalVal.size()+num2.decimalVal.size()));
-            answer.isNegative = (this->isNegative != num2.isNegative);
+            for(unsigned int i = 0; i < unitary_results.size(); i++)
+                answer += unitary_results[i];
+            answer.decimal_val = answer.integral_val.substr(answer.integral_val.size()-(this->decimal_val.size()+num2.decimal_val.size()),this->decimal_val.size()+num2.decimal_val.size());
+            answer.integral_val = answer.integral_val.substr(0,answer.integral_val.size()-(this->decimal_val.size()+num2.decimal_val.size()));
+            answer.is_negative = (this->is_negative != num2.is_negative);
             answer.deleteTrailingZeroes();
             return answer;
         }
@@ -364,30 +364,30 @@ namespace GFloatingPoints
         }
         GFloat operator/(const GFloat& num2) const
         {
-            unsigned int maxDecimalsNow = std::max(this->decimalVal.size(),num2.decimalVal.size()) - (this->decimalVal == "0" && num2.decimalVal == "0");
+            unsigned int maxDecimalsNow = std::max(this->decimal_val.size(),num2.decimal_val.size()) - (this->decimal_val == "0" && num2.decimal_val == "0");
             const GFloat dividend = (this->abs() * pow(10,maxDecimalsNow));
             const GFloat divisor = (num2.abs() * pow(10,maxDecimalsNow));
             GFloat remainder;
-            remainder.integralVal = "";
+            remainder.integral_val = "";
             std::string cocient;
             unsigned int precision = getPrecision();
-            unsigned int currentIndex = 0;
+            unsigned int current_index = 0;
             bool point = false;
-            while((cocient.find('.') == cocient.npos || cocient.size()-cocient.find('.') < precision) && !(remainder == 0 && currentIndex >= dividend.integralVal.size()))
+            while((cocient.find('.') == cocient.npos || cocient.size()-cocient.find('.') < precision) && !(remainder == 0 && current_index >= dividend.integral_val.size()))
             {
-                if(currentIndex >= dividend.integralVal.size())
+                if(current_index >= dividend.integral_val.size())
                 {
                     if(!point)
                     {
                         cocient += '.';
                         point = true;
                     }
-                    remainder.integralVal += '0';
+                    remainder.integral_val += '0';
                 }
                 else
                 {
-                    remainder.integralVal += dividend.integralVal[currentIndex];
-                    currentIndex++;
+                    remainder.integral_val += dividend.integral_val[current_index];
+                    current_index++;
                 }
                 if(divisor > remainder)
                 {
@@ -404,7 +404,7 @@ namespace GFloatingPoints
                     cocient += char(counter + '0');
                 }
             }
-            cocient = (this->isNegative == num2.isNegative ? "":"-") + cocient;
+            cocient = (this->is_negative == num2.is_negative ? "":"-") + cocient;
             return GFloat(cocient);
         }
         GFloat operator/=(const GFloat& num2)
@@ -414,24 +414,24 @@ namespace GFloatingPoints
         }
         GFloat operator%(const GFloat& num2) const
         {
-            unsigned int maxDecimalsNow = std::max(this->decimalVal.size(),num2.decimalVal.size()) - (this->decimalVal == "0" && num2.decimalVal == "0");
-            const GFloat dividend = (this->abs() * GFloat(pow(10,maxDecimalsNow)));
-            const GFloat divisor = (num2.abs() * GFloat(pow(10,maxDecimalsNow)));
+            unsigned int max_decimals_now = std::max(this->decimal_val.size(),num2.decimal_val.size()) - (this->decimal_val == "0" && num2.decimal_val == "0");
+            const GFloat dividend = (this->abs() * GFloat(pow(10,max_decimals_now)));
+            const GFloat divisor = (num2.abs() * GFloat(pow(10,max_decimals_now)));
             GFloat remainder;
-            remainder.integralVal = "";
+            remainder.integral_val = "";
             std::string cocient;
-            unsigned int currentIndex = 0;
-            while(!(remainder == 0 && currentIndex >= dividend.integralVal.size()))
+            unsigned int current_index = 0;
+            while(!(remainder == 0 && current_index >= dividend.integral_val.size()))
             {
-                if(currentIndex >= dividend.integralVal.size())
+                if(current_index >= dividend.integral_val.size())
                 {
                     remainder.deleteTrailingZeroes();
-                    return remainder / GFloat(pow(10,maxDecimalsNow));
+                    return remainder / GFloat(pow(10,max_decimals_now));
                 }
                 else
                 {
-                    remainder.integralVal += dividend.integralVal[currentIndex];
-                    currentIndex++;
+                    remainder.integral_val += dividend.integral_val[current_index];
+                    current_index++;
                 }
                 while(divisor <= remainder)
                 {
@@ -445,16 +445,16 @@ namespace GFloatingPoints
             *this = *this % num2;
             return *this;
         }
-        static unsigned int setPrecision(unsigned int newPrecision)
+        static unsigned int setPrecision(unsigned int new_precision)
         {
             static unsigned int precision = 10;
-            if(newPrecision == 0)
+            if(new_precision == 0)
             {
                 return precision;
             }
             else
             {
-                precision = newPrecision;
+                precision = new_precision;
                 return 0;
             }
         }
