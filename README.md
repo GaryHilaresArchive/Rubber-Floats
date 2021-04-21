@@ -1,12 +1,12 @@
-# GFloatingPoints
+# Rubber Floats
 [![badge-lastcommit](https://img.shields.io/github/last-commit/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints/commits/main)
 [![badge-openissues](https://img.shields.io/github/issues-raw/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints/issues)
 [![badge-license](https://img.shields.io/github/license/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints/blob/main/LICENSE)
 [![badge-contributors](https://img.shields.io/github/contributors/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints/graphs/contributors)
 [![badge-codesize](https://img.shields.io/github/languages/code-size/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints)
 
-## What is GFloatingPoints?
-GFloatingPoints is an arbitrary floating point precision support library for C++.
+## What is Rubber Floats?
+Rubber Floats is an arbitrary floating point precision support library for C++.
 
 ### Features
 - Scalable.
