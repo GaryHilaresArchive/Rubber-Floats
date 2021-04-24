@@ -1,12 +1,12 @@
-# GFloatingPoints
-[![badge-lastcommit](https://img.shields.io/github/last-commit/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints/commits/main)
-[![badge-openissues](https://img.shields.io/github/issues-raw/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints/issues)
-[![badge-license](https://img.shields.io/github/license/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints/blob/main/LICENSE)
-[![badge-contributors](https://img.shields.io/github/contributors/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints/graphs/contributors)
-[![badge-codesize](https://img.shields.io/github/languages/code-size/GaryNLOL/GFloatingPoints?style=for-the-badge)](https://github.com/GaryNLOL/GFloatingPoints)
+# Rubber Floats
+[![badge-lastcommit](https://img.shields.io/github/last-commit/GaryNLOL/Rubber-Floats?style=for-the-badge)](https://github.com/GaryNLOL/Rubber-Floats/commits/main)
+[![badge-openissues](https://img.shields.io/github/issues-raw/GaryNLOL/Rubber-Floats?style=for-the-badge)](https://github.com/GaryNLOL/Rubber-Floats/issues)
+[![badge-license](https://img.shields.io/github/license/GaryNLOL/Rubber-Floats?style=for-the-badge)](https://github.com/GaryNLOL/Rubber-Floats/blob/main/LICENSE)
+[![badge-contributors](https://img.shields.io/github/contributors/GaryNLOL/Rubber-Floats?style=for-the-badge)](https://github.com/GaryNLOL/Rubber-Floats/graphs/contributors)
+[![badge-codesize](https://img.shields.io/github/languages/code-size/GaryNLOL/Rubber-Floats?style=for-the-badge)](https://github.com/GaryNLOL/Rubber-Floats)
 
-## What is GFloatingPoints?
-GFloatingPoints is an arbitrary floating point precision support library for C++.
+## What is Rubber Floats?
+Rubber Floats is an arbitrary floating point precision support library for C++.
 
 ### Features
 - Scalable.
@@ -66,5 +66,5 @@ If there is something you must add do it here.
 ```
 
 ## Useful links
-- [C++ Style Guide](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/C%2B%2B%20Style%20Guide.md).
+- [C++ Style Guide](https://github.com/GaryNLOL/Style-Guides/blob/main/CPP%20Style%20Guide.md).
 - [Discord Server.](https://discord.gg/RQN6gcDQwX)
